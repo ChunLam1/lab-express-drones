@@ -1,11 +1,18 @@
 const express = require('express');
 const router = express.Router();
-
+const droneModel = require("./../../lab-express-drones/models/Drone.model");
 // require the Drone model here
 
 router.get('/drones', (req, res, next) => {
   // Iteration #2: List the drones
   // ... your code here
+  droneModel
+    .find()
+    .then((drones) => {
+        res.locals.drones = drones
+        res.render("drones/list")
+    })
+    .catch(err => next(err))
 });
 
 router.get('/drones/create', (req, res, next) => {
